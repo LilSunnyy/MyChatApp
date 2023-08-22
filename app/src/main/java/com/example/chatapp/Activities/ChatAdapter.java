@@ -132,13 +132,6 @@ public class ChatAdapter extends ListAdapter<Message,RecyclerView.ViewHolder> {
             ((SendViewHolder)holder).llc.removeAllViews();
 //            if(currentMessage.firstChat!=null && currentMessage.firstChat.equals("1")){
             if(chatDayOk){
-//                if(card.getParent() != null) {
-//                    ((ViewGroup)card.getParent()).removeView(card); // <- fix
-//                }
-//                View card=inCardObj.cardlist.get(position);
-//                if(card.getParent() != null) {
-//                    ((ViewGroup)card.getParent()).removeView(card); // <- fix
-//                }
                 View card=inflator.inflate(R.layout.date_layout,null);
                 TextView tvDay=card.findViewById(R.id.chtday);
                 tvDay.setText(currentMessage.chatDay);
