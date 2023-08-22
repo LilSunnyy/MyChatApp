@@ -1,0 +1,100 @@
+package com.example.chatapp.Activities;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.chatapp.ProfilePicture.ProfilePictureOperations;
+import com.example.chatapp.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class UserAdapter extends ListAdapter<AppUser,UserAdapter.ViewHolder> {
+//    private String Name;
+    private Context context;
+//    private ArrayList<AppUser> userList ;
+    private DatabaseReference mDbRef;
+    Bitmap removed ;
+    public UserAdapter(Context context)
+    {
+        super(DIFF_CALLBACK);
+        Log.d("bug","got_response21");
+        this.context=context;
+        mDbRef= FirebaseDatabase.getInstance().getReference();
+        removed=BitmapFactory.decodeResource(context.getResources(), R.drawable.userabc);
+    }
+    private static final DiffUtil.ItemCallback<AppUser> DIFF_CALLBACK = new DiffUtil.ItemCallback<AppUser>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull AppUser oldItem, @NonNull AppUser newItem) {
+            return oldItem.uid==newItem.uid;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull AppUser oldItem, @NonNull AppUser newItem) {
+          return true;
+        }
+    };
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        Log.d("bugg","here onCreate--------------------------------------------------------------------"+getItemCount());
+        View view = LayoutInflater.from(context).inflate(R.layout.user_layout,parent,false);
+        return new ViewHolder(view);
+    }
+
+//    @NonNull
+//    @Override
+//    public UserAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        Log.d("bug","got_response2");
+////       View view = LayoutInflater.from(context).inflate(R.layout.user_layout,parent,false);
+////
+////        return new ViewHolder(view);
+//    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d("bug","got_response4");
+        AppUser user = getItem(position);
+        holder.nametxt.setText(user.getName().toUpperCase());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserActive.chattingWith=user.getName();
+                Intent intent = new Intent(context,ChatActivity.class);
+                intent.putExtra("NAME_KEY",user.getName());
+                intent.putExtra("UID_KEY", user.getUid());
+                intent.putExtra("NODEKEY",user.NodeKeyForDeletion);
+                context.startActivity(intent);
+            }
+        });
+        if(ProfilePictureOperations.picMap.containsKey(user.getUid())){
+            holder.imgView.setImageBitmap((Bitmap) ProfilePictureOperations.picMap.get(user.getUid()));
+        }else {
+            holder.imgView.setImageBitmap(removed);
+        }
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder  {
+        private TextView nametxt ;
+        private ImageView imgView;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            Log.d("bug","got_response3");
+            nametxt= itemView.findViewById(R.id.nametxt);
+            imgView=itemView.findViewById(R.id.userPic);
+        }
+    }
+}

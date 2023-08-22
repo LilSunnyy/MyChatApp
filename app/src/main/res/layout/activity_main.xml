@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MainActivity"
+    android:background="@color/grey">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/actionbar"
+        android:background="#FF8989"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="180dp"
+                android:src="@drawable/logo"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+            </ImageView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="7dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/profCard"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:id="@+id/profilePic"
+                    android:src="@drawable/userabc">
+                </ImageView>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <ProgressBar
+        android:id="@+id/pgbr_m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+    </ProgressBar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RwView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/actionbar"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>
