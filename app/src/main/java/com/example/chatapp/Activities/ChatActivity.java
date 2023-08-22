@@ -694,7 +694,6 @@ public class ChatActivity extends AppCompatActivity  implements ImageCompression
     }
 
     @Override
-    // nén ảnh
     public void uploadOnCompression() {
      imageUri=Uri.fromFile(new File("/storage/emulated/0/Android/data/com.example.chatapp/files/compressed/newcompimage.jpg"));
      mainHandler.post(new Runnable() {
